@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@page 
+import = "java.text.SimpleDateFormat,
+ java.util.Date, 
+ java.util.concurrent.TimeUnit"
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +13,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-<!doctype html>
-<html lang="en">
   <head>
   
     <meta charset="utf-8">
@@ -35,50 +36,36 @@
   <div class="row row-cols-3">
     <div class="col"></div>
     <div class="col">
-    <form action="" method="">
-    	<h1>SignUpFrom.jsp</h1>
-		<h2>課程報名表</h2>
-		Email <input type="text" name="Email"  > ${EmailMsg}<br/> 	
-		姓名<input type="text" name="Username"> <br/>
-		
-		性別<input type="radio" name="Sex" value="male"> 男
-		<input type="radio" name="Sex" value="Womman"> 女	
-		<input type="radio" name="Sex" value="mid">中性 ${SexMsg}
-		<span class ="empty"><input type = "radio" name = "Sex" value = "null" checked>空的 </span>
-		 <br/>
+    <form action="" method="get">
+      <h1>請輸入您的出先年月日</h1>
+      <label>輸入出生年月日 </label>
+      <input type="date" name="date" value ="2000-04-08">
+      <input type="submit" name="submit">
+     </form>
 
-		聯絡電話<input type="cc-number" name="ContectNumber"> ${ContectNumberMsg} <br/>
-		資訊來源 
-		<input type="checkbox" name="Checkbox" value="Newspaper">報紙
-		<input type="checkbox" name="Checkbox" value="Email" >Email
-		<input type="checkbox" name="Checkbox" value= "Website" >網站 <br/>
-		居住城市
-		<select name = "city">
-			<option value="tiepei">Taipei </option>
-			<option value="taichung">Taichung</option>
-			<option value= "kaohsiung"> Kaohsiung</option>
-		</select> </br>
-	<input type="submit" name="submit meth:post">
-	<input type="reset" name="reset">
-	</form>
-<div>Have you any problem you can contect me Email ${adminEmail}</div>
+    <%
+		String date  = (String) request.getParameter("date");
+    	out.print(date);
+    	
+    	
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+    	Date dateobj = sdf.parse(date);
+    	Date today = new Date();
+    	
+    	Long BirthdayMillSecs = dateobj.getTime();
+    	Long TodayMillSecs = today.getTime();
+ 
+    	Long days =(TodayMillSecs-BirthdayMillSecs)/1000/60/60/24 ;
+    	out.println("活了多少天"+days+"天"); 
+    	
+
+    %>
     
-    <div class="col"></div>
-    
-  </div>
+   
+ </div>
 </div>
-  		
-  	</div>
-  </div>
-   <h1>
-   	<%
-		String Email = (String) request.getParameter("Email");
- 		if(Email != "" ){
- 			out.print("有這個emaill"+Email);
- 		}
-   	%>
-<%-- <%="這是自己傳給自己的Email ="+Email %>  --%>
+</div>	
+ </div>	   
   </body>
 </html>
-</body>
-</html>
+
